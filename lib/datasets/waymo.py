@@ -6,7 +6,17 @@ from PIL import Image
 
 class Waymo(KITTI):
     def __init__(self, root_dir, split, cfg):
-        super.__init__(self, root_dir, split, cfg)
+        self.num_classes = 3
+        self.max_objs = 50
+        self.class_name = ['Pedestrian', 'Car', 'Cyclist']
+        self.cls2id = {'Pedestrian': 0, 'Car': 1, 'Cyclist': 2}
+        self.use_3d_center = cfg['use_3d_center']
+        self.writelist = cfg['writelist']
+        if cfg['class_merging']:
+            self.writelist.extend(['Van', 'Truck'])
+        if cfg['use_dontcare']:
+            self.writelist.extend(['DontCare'])
+        
         ##l,w,h
         self.cls_mean_size = np.array([[1.74902460, 0.85362147, 0.90802619],
                                        [1.79205100, 2.10208423, 4.79851555],
@@ -24,6 +34,20 @@ class Waymo(KITTI):
         self.image_dir = os.path.join(self.data_dir, 'image_0')
         self.calib_dir = os.path.join(self.data_dir, 'calib')
         self.label_dir = os.path.join(self.data_dir, 'filter_label_0')
+        
+        # data augmentation configuration
+        self.data_augmentation = True if split in ['train', 'trainval'] else False
+        self.random_flip = cfg['random_flip']
+        self.random_crop = cfg['random_crop']
+        self.scale = cfg['scale']
+        self.shift = cfg['shift']
+
+        # statistics
+        self.mean = np.array([0.485, 0.456, 0.406], dtype=np.float32)
+        self.std  = np.array([0.229, 0.224, 0.225], dtype=np.float32)
+
+        # others
+        self.downsample = 4
 
 
 if __name__ == '__main__':
