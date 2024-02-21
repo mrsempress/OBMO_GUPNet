@@ -1,6 +1,6 @@
 # OBMO: One Bounding Box Multiple Objects for Monocular 3D Object Detection
 
-This project is based on our paper: **OBMO: One Bounding Box Multiple Objects for Monocular 3D Object Detection** and the monocular 3D detector: **Geometry Uncertainty Projection Network for Monocular 3D Object Detection**. 
+This [project](https://github.com/mrsempress/OBMO) is based on our paper [**OBMO: One Bounding Box Multiple Objects for Monocular 3D Object Detection**](https://ieeexplore.ieee.org/document/10325411) and the monocular 3D detector: **Geometry Uncertainty Projection Network for Monocular 3D Object Detection**. 
 
 ## Usage
 
